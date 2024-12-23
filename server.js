@@ -1,4 +1,3 @@
-const http = require("http");
 const https = require("https");
 const fs = require("fs");
 
@@ -12,9 +11,10 @@ const notFoundHandler = require("./util/not-found");
 const autoSSL = require("./util/auto-ssl");
 
 const app = express();
-const httpApp = express();
 
-httpApp.use(autoSSL);
+app.enable("trust proxy");
+app.use(autoSSL);
+
 app.use(express.json());
 app.use(
   express.urlencoded({
@@ -38,12 +38,6 @@ const options = {
   cert: fs.readFileSync(`/etc/letsencrypt/live/${process.env.URL}/cert.pem`),
   ca: fs.readFileSync(`/etc/letsencrypt/live/${process.env.URL}/chain.pem`),
 };
-
-http.createServer(httpApp).listen(Number(PORT) + 1, () => {
-  console.log(
-    `HTTP server is running on port ${Number(PORT) + 1} (redirecting to HTTPS)`
-  );
-});
 
 https.createServer(options, app).listen(PORT, () => {
   console.log("Server berjalan di " + process.env.BASE_URL);
