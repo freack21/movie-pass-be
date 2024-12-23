@@ -8,9 +8,11 @@ require("dotenv").config({
 const express = require("express");
 const authRoute = require("./route/auth");
 const notFoundHandler = require("./util/not-found");
+const autoSSL = require("./util/auto-ssl");
 
 const app = express();
 
+app.use(autoSSL);
 app.use(express.json());
 app.use(
   express.urlencoded({
