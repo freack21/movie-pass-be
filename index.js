@@ -4,6 +4,7 @@ require("dotenv").config({
 });
 const express = require("express");
 const authRoute = require("./route/auth");
+const movieRoute = require("./route/movie");
 const notFoundHandler = require("./util/not-found");
 
 const app = express();
@@ -22,6 +23,7 @@ app.all("/", (req, res) => {
 });
 
 app.use("/auth", authRoute);
+app.use("/movie", movieRoute);
 
 app.use(notFoundHandler);
 
