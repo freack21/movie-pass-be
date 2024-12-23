@@ -4,10 +4,7 @@ Welcome to the MoviePass API! This project is a Node.js-based backend service fo
 
 ## 📋 Features
 
-- User registration and login
-- Profile management (view and update profile)
-- Avatar upload and storage
-- Token-based authentication (access and refresh tokens)
+- Movie search
 
 ## 🛠️ Installation
 
@@ -49,52 +46,24 @@ Follow these steps to set up the project on your local machine:
 
 ## 📄 API Endpoints
 
-### Authentication
+### Movies
 
-- **POST /auth/register**
+- **GET /movie**
 
-  - Registers a new user.
-  - Request body: `{ "name": "John Doe", "email": "john@example.com", "password": "password123" }`
+  - Get now playing movie list.
 
-- **POST /auth/login**
+- **GET /movie/:id**
 
-  - Logs in an existing user.
-  - Request body: `{ "email": "john@example.com", "password": "password123" }`
+  - Get movie detail by movie id.
 
-- **POST /auth/logout**
-  - Logs out the current user.
+- **GET /movie/search**
 
-### User Profile
+  - Searches for movies based on query parameters.
+  - Request query: `?title=Inception`
 
-- **GET /auth/profile**
+- **GET /movie/search/:id**
 
-  - Retrieves the profile of the logged-in user.
-
-- **PUT /auth/profile**
-  - Updates the profile of the logged-in user.
-  - Request body: `{ "name": "John Doe", "phone": "1234567890", "gender": "male" }`
-  - Supports avatar upload.
-
-## 📂 Project Structure
-
-```
-movie-pass-be/
-├── config/
-│   └── db.js
-├── controller/
-│   └── user.js
-├── public/
-│   └── avatars/
-├── route/
-│   └── auth.js
-├── util/
-│   └── not-found.js
-├── .env.example
-├── .env
-├── index.js
-├── package.json
-└── README.md
-```
+  - Searches for movies based on id params.
 
 ## 📝 License
 

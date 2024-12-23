@@ -17,7 +17,7 @@ const getMovies = async (req, res) => {
         .children()
         .each((index_, element_) => {
           if (index_ === 0) {
-            movie.img = $(element_).find(".img").attr("src");
+            movie.poster = $(element_).find(".img").attr("src");
             const regex = /\/movie\/([^\/]+)\/?$/;
             url = $(element_).find(".img").parent().attr("href");
 
@@ -46,10 +46,10 @@ const getDetailMovie = async (req, res) => {
 
     const result = {};
 
-    const banner = $(
+    const poster = $(
       "body main div.gt-page-wrapper div.gt-title-overview.gt-style-1 div.gt-cover div div.gt-poster img"
     );
-    result.banner = banner.attr("src");
+    result.poster = poster.attr("src");
 
     const title = $(
       "body main div.gt-page-wrapper div.gt-title-overview.gt-style-1 div.gt-cover div div.gt-details.gt-part-1 h1"
@@ -74,10 +74,10 @@ const getDetailMovie = async (req, res) => {
     );
     result.trailer = trailer.attr("href");
 
-    const duration = $(
+    const runtime = $(
       "body main div.gt-page-wrapper div.gt-title-overview.gt-style-1 div.gt-cover div div.gt-details.gt-part-1 div.gt-items div.gt-dotted-items div"
     );
-    result.duration = duration.text();
+    result.runtime = runtime.text();
 
     const stars = $(
       "body main div.gt-page-wrapper div.gt-title-overview.gt-style-1 div.gt-flex-container div div div.gt-inner-items div div.gt-point div img"
