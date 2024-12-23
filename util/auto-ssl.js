@@ -1,9 +1,8 @@
 const autoSSL = (req, res, next) => {
-  if (req.secure) {
-    next();
-  } else {
-    res.redirect(process.env.BASE_URL + req.url);
+  if (!req.secure) {
+    return res.redirect(`https://${req.headers.host}${req.url}`);
   }
+  next();
 };
 
 module.exports = autoSSL;

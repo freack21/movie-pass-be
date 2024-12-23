@@ -1,3 +1,4 @@
+const http = require("http");
 const https = require("https");
 const fs = require("fs");
 
@@ -8,12 +9,11 @@ require("dotenv").config({
 const express = require("express");
 const authRoute = require("./route/auth");
 const notFoundHandler = require("./util/not-found");
+const autoSSL = require("./util/auto-ssl");
 
 const app = express();
 
-const redirectToHTTPS = require("express-http-to-https").redirectToHTTPS;
-app.use(redirectToHTTPS([/localhost:(\d{4})/], 301));
-
+app.use(autoSSL);
 app.use(express.json());
 app.use(
   express.urlencoded({
@@ -40,4 +40,9 @@ const options = {
 
 https.createServer(options, app).listen(PORT, () => {
   console.log("Server berjalan di " + process.env.BASE_URL);
+});
+
+const PORT_HTTP = Number(PORT) + 1;
+http.createServer(app).listen(PORT_HTTP, () => {
+  console.log(`Server HTTP berjalan di port ${PORT_HTTP} (redirect ke HTTPS)`);
 });
