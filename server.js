@@ -1,4 +1,5 @@
 const https = require("https");
+const http = require("http");
 const fs = require("fs");
 
 const path = require("path");
@@ -40,3 +41,12 @@ const options = {
 https.createServer(options, app).listen(PORT, () => {
   console.log("Server berjalan di " + process.env.BASE_URL);
 });
+
+http
+  .createServer((req, res) => {
+    res.writeHead(301, { Location: `https://${req.headers.host}${req.url}` });
+    res.end();
+  })
+  .listen(80, () => {
+    console.log("HTTP server is running on port 80 (redirecting to HTTPS)");
+  });
