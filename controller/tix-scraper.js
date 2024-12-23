@@ -13,7 +13,6 @@ const getMovies = async (req, res) => {
     const result = [];
     $(movieList).each((index, element) => {
       const movie = {};
-      console.log($(element).html());
       $(element)
         .children()
         .each((index_, element_) => {
