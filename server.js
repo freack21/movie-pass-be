@@ -39,10 +39,10 @@ const options = {
 };
 
 https.createServer(options, app).listen(PORT, () => {
-  console.log("Server berjalan di " + process.env.BASE_URL);
+  console.log("Server running on " + process.env.BASE_URL);
 });
 
 const PORT_HTTP = Number(PORT) + 1;
 http.createServer(app).listen(PORT_HTTP, () => {
-  console.log(`Server HTTP berjalan di port ${PORT_HTTP} (redirect ke HTTPS)`);
+  console.log(`HTTP server running (auto redirect to HTTPS)`);
 });
