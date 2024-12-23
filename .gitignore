@@ -1,0 +1,7 @@
+node_modules/
+public/avatars/
+
+
+config/fb-credentials.json
+.env
+.prettierrc
