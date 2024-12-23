@@ -8,12 +8,11 @@ require("dotenv").config({
 const express = require("express");
 const authRoute = require("./route/auth");
 const notFoundHandler = require("./util/not-found");
-const autoSSL = require("./util/auto-ssl");
 
 const app = express();
 
-app.enable("trust proxy");
-app.use(autoSSL);
+const redirectToHTTPS = require("express-http-to-https").redirectToHTTPS;
+app.use(redirectToHTTPS([/localhost:(\d{4})/], 301));
 
 app.use(express.json());
 app.use(
