@@ -47,6 +47,10 @@ http
     res.writeHead(301, { Location: `https://${req.headers.host}${req.url}` });
     res.end();
   })
-  .listen(80, () => {
-    console.log("HTTP server is running on port 80 (redirecting to HTTPS)");
+  .listen(Number(PORT) + 1, () => {
+    console.log(
+      `HTTP server is running on port ${
+        Number(PORT) + 1
+      } (redirecting to HTTPS)`
+    );
   });
