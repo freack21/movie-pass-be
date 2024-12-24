@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const tokenizer = require("../util/tokenizer");
+const tokenizer = require("../controller/tokenizer");
 const userController = require("../controller/user");
 
 const multer = require("multer");
@@ -20,6 +20,6 @@ router
 
 router.post("/logout", tokenizer.authenticateToken, userController.logout);
 
-router.post("/token", tokenizer.refreshAccessToken);
+router.get("/token", tokenizer.refreshAccessToken);
 
 module.exports = router;
