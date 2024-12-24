@@ -40,10 +40,16 @@ const authenticateToken = (req, res, next) => {
 };
 
 const refreshAccessToken = async (req, res) => {
-  const { token } = req.body;
-
-  if (!token)
-    return res.status(401).json({ message: "Refresh Token required!" });
+  let token = req.header("Authorization");
+  if (!token) {
+    return res.status(401).json({ message: "Authorization required!" });
+  }
+  if (!token.includes("Bearer")) {
+    return res
+      .status(400)
+      .json({ message: "Authorization with 'Bearer token' required!" });
+  }
+  token = token.split(" ")[1];
 
   const tokensRef = db.collection("refreshTokens");
   const query = await tokensRef.where("refreshToken", "==", token).get();
