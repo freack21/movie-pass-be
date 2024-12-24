@@ -2,7 +2,7 @@ const { default: axios } = require("axios");
 
 const searchMovies = async (req, res) => {
   try {
-    const { title } = req.query;
+    const title = req.query.title || req.body.title || req.headers.title;
 
     if (!title) {
       return res.json({ message: "'title' is required!", success: false });

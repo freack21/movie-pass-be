@@ -3,8 +3,7 @@ require("dotenv").config({
   path: path.join(__dirname, ".env"),
 });
 const express = require("express");
-const authRoute = require("./route/auth");
-const movieRoute = require("./route/movie");
+const routeHandler = require("./route");
 const notFoundHandler = require("./util/not-found");
 
 const app = express();
@@ -18,12 +17,7 @@ app.use(
 
 app.use(express.static(path.join(__dirname, "public")));
 
-app.all("/", (req, res) => {
-  return res.json({ message: "Welcome to MoviePass API", success: true });
-});
-
-app.use("/auth", authRoute);
-app.use("/movie", movieRoute);
+app.use(routeHandler);
 
 app.use(notFoundHandler);
 
